@@ -7,10 +7,11 @@ const orm = {
             console.log(data)
         })
     },
-    insertOne: function () {
-        connection.query('', (err, data) => {
+    insertOne: function (table, colOne, colTwo, valOne, valTwo, cb) {
+        connection.query('INSERT INTO ?? (??, ??) VALUES (?, ?);', [table, colOne, colTwo, valOne, valTwo], function (err, results) {
             if (err) throw err
-            console.log(data)
+            console.log(results)
+            cb(results)
         })
     },
     updateOne: function() {
@@ -21,4 +22,6 @@ const orm = {
     }
 }
 
-module.export = orm
+
+
+module.exports = orm;
