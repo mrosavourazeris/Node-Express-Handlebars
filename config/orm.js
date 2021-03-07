@@ -1,10 +1,10 @@
 const connection = require("./connection")
 
 const orm = {
-    selectAll: function (tableName){
-        connection.query('SELECT * FROM ??', tableName, (err,data) => {
+    selectAll: function (tableName, cb){
+        connection.query('SELECT * FROM ??', tableName, function (err,result) {
             if (err) throw err
-            console.log(data)
+            cb(result)
         })
     },
     insertOne: function (table, colOne, colTwo, valOne, valTwo, cb) {
