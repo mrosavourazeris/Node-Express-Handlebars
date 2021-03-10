@@ -1,42 +1,53 @@
 $(document).ready(() => {
     const burgerButton = $(".btn")
     const createBurger = $("#createBurger")
+    const changeButton = $(".changeButton")
 
     // console.log(burgerButton)
 
-    $(function() {
-        $(".change-devour").on("click", function(event) {
-          var id = $(this).data("id");
-          var newDevour = $(this).data("newdevoured");
-      
-          var newDevourState = {
-            devoured: newDevour
-          };
-      
-          // Send the PUT request.
-          $.ajax("/api/burgers/" + id, {
-            type: "PUT",
-            data: newDevourState
-          }).then(
-            function() {
-              console.log("changed sleep to", newDevour);
-              // Reload the page to get the updated list
-              location.reload();
-            }
-          );
-        });
+    changeButton.on("click", (event) => {
+        console.log(event.target)
+        // event.preventDefault()
+        // console.log("Change button works!")
+        const id = event.target.getAttribute("data-id")
+        const devour = event.target.getAttribute("data-newdevoured");
+        // console.log(devour)
+    
+        const newDevourState = {
+        devoured: devour === "0" ? 1: 0
+        };
+        changeBurger()
+        location.reload()
+        // console.log(newDevourState)
+    
+        // Send the PUT request.
+        function changeBurger (){
+            $.ajax("/api/burgers/" + id, {
+                type: "PUT",
+                data: newDevourState
+            }).then(function(data) {
+                // console.log(data)
+                // console.log("changed devoured to", devour);
+                // Reload the page to get the updated list
+            }).catch((err) => {
+                console.log(err)
+                throw err
+            })
+        }
+
+    })
 
     burgerButton.on("click", (event) => {
         event.preventDefault()
         const newBurger = createBurger.val().trim()
         makeBurger()
+        location.reload()
         // console.log(newBurger)
         function makeBurger(){
             $.post("/api/burgers", {
                 newBurger: newBurger
             }).then( function (){
                 console.log("new burger added!");
-                location.reload()
             }).catch((err) => {
                 console.log(err);
                 throw err;

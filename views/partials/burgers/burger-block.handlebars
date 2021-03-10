@@ -1,6 +1,7 @@
 <div>
 	{{burger_name}}
-	<button class="change-devoured" data-id="{{id}}" data-newdevoured="{{devoured}}">
-		{{#if devoured}}DEVOUR IT!{{/if}}
+	<button class="changeButton" data-id="{{id}}" data-newdevoured="{{devoured}}">
+		{{#if devoured}}ORDER AGAIN!{{else}}DEVOUR!{{/if}}
+		{{!-- {{#unless devoured}}DEVOUR IT!{{/unless}} --}}
 	</button>
 </div>

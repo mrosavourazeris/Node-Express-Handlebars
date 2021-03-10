@@ -10,14 +10,15 @@ const orm = {
     insertOne: function (table, colOne, colTwo, valOne, valTwo, cb) {
         connection.query('INSERT INTO ?? (??, ??) VALUES (?, ?);', [table, colOne, colTwo, valOne, valTwo], function (err, results) {
             if (err) throw err
-            console.log(results)
+            // console.log(results)
             cb(results)
         })
     },
-    updateOne: function() {
-        connection.query('', (err,data) => {
+    updateOne: function(table, colOne, valOne, colTwo, valTwo, cb) {
+        connection.query('UPDATE ?? SET ?? = ? WHERE ?? = ?;', [table, colOne, valOne, colTwo, valTwo], function (err, results) {
             if (err) throw err
-            console.log(data)
+            // console.log(results)
+            cb(results)
         })
     }
 }
