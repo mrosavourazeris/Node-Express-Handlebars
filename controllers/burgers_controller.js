@@ -10,22 +10,17 @@ router.get("/", function (req,res) {
         const allBurgers = {
             burgers: data
         };
-        // console.log("These are all burgers", allBurgers)
         res.render("index",allBurgers)
     })
 })
 
 router.post("/api/burgers", function (req,res) {
-    // console.log("this is req.body", req.body)
     burger.insertOne(req.body.newBurger, function (result) {
         console.log(result)
     })
 })
 
 router.put("/api/burgers/:id", function (req,res) {
-    // console.log(typeof(req.body.devoured))
-    // console.log("this is req.body", typeof(parseInt(req.params.id)))
-    // console.log("put works")
     const condition = req.params.id;
     burger.updateOne(req.body.devoured, condition, function (result){
         if (result.changedRows == 0)  {
